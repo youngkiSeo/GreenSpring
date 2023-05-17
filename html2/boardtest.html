@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="http://localhost:8080/board?iboard=1&title=니가가라&ctnt=키는내가더컸다&writer=장동건"
+        method="post">
+        <input type="submit" value="전송">
+    </form>
+    <br>
+    <form action="http://localhost:8080/board" method="post">
+        <div><input type="text" name="iboard" placeholder="iboard"></div>
+        <div><input type="text" name="title" placeholder="제목"></div>
+        <div>
+            <textarea name="ctnt" placeholder="내용"></textarea>
+        </div>
+        <div><input type="text" name="writer" placeholder="작성자"></div>
+        <div><input type="submit" value="전송2"></div>
+    </form>
+    <br>
+    <form id="frm">
+        <div><input type="text" name="iboard" placeholder="iboard"></div>
+        <div><input type="text" name="title" placeholder="제목"></div>
+        <div>
+            <textarea name="ctnt" placeholder="내용"></textarea>
+        </div>
+        <div><input type="text" name="writer" placeholder="작성자"></div>
+    </form>
+    <div><input id="submit2" type="button" value="전송2"></div>
+</body>
+<script>
+    const $frm = document.querySelector('#frm');
+    const $submit2 = document.querySelector("#submit2");
+    $submit2.addEventListener('click', function() {
+        const iboard = $frm.iboard.value;
+        const title = $frm.title.value;
+        const ctnt = $frm.ctnt.value;
+        const writer = $frm.writer.value;
+        const param = {
+            iboard, title, ctnt, writer
+        }
+        fetch('http://localhost:8080/board2', {
+            method: 'post',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(param)
+        })
+        .then(res => res.json())
+        .then(result => {
+            console.log(result);
+        });
+    });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
