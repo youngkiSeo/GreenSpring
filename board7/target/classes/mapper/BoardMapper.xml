@@ -2,7 +2,7 @@
         <!DOCTYPE mapper
                 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.board7.BoardMapper">
+<mapper namespace="com.example.board7.board.BoardMapper">
     <insert id="BoardInsDto" parameterType="BoardDto">
         insert into t_board
         (title, ctnt, writer)
@@ -25,7 +25,9 @@
     </delete>
 
     <select id="selALLBoard" resultType="BoardVo">
-        select iboard,title,ctnt,writer,created_at as createdAt from t_board;
+        select iboard,title,ctnt,writer,created_at as createdAt from t_board
+        order by iboard desc
+        LIMIT ${startsIdx},${rowLen}
     </select>
 
     <select id="selBoardDetail" resultType="BoardDetailVo">

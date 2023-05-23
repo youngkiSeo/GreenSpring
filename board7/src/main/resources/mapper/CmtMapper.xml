@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.board7.cmt.CmtMapper">
+<insert id="insBoardCmt" parameterType="BoardCmtInsDto">
+    insert into t_board_cmt
+    set iboard = ${iboard},
+    ctnt = #{ctnt},
+    writer= #{writer},
+    pw = #{pw}
+</insert>
+    <delete id="delBoardCmt">
+        delete from t_board_cmt
+        where icmt = #{icmt} and pw = #{pw}
+
+    </delete>
+    <select id="selBoardCmt" resultType="BoardCmtVo">
+        select icmt,ctnt,writer,created_at as createdAt
+        from t_board_cmt
+        where iboard =#{iboard}
+    </select>
+
+</mapper>
