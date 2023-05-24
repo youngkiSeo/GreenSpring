@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.board7.fileupload.fileuploadMapper">
+    <insert id="insFile" parameterType="FileEntity">
+        insert into t_file
+        (path,uploader,levelvalue)
+        values
+        (#{path},#{uploader},#{levelvalue})
+    </insert>
+</mapper>
