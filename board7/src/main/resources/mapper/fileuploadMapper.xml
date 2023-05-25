@@ -9,4 +9,7 @@
         values
         (#{path},#{uploader},#{levelvalue})
     </insert>
+    <select id="selFileById" resultType="FileEntity">
+        select * from t_file where ifile = #{ifile}
+    </select>
 </mapper>
