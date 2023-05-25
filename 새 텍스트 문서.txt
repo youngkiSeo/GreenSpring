@@ -1,0 +1,13 @@
+
+restful
+
+메소드로 구분
+CRUD
+(post/get/put(patch)/delete)
+-쿼리스트링 형식 주소뒤에 물음표
+-form Data 형식 
+-json형식 @RequestBody 값 적어야함 
+{"aaa" : "ffff",  "bbb":1 } 중괄호로 열고 닫고, 키와 value 키는 왼쪽 value는 오른쪽
+-Path variable
+(get)/shop
+(get)/shop/2/4/700 ...
