@@ -36,7 +36,7 @@
 
     </update>
 
-    <delete id="BoardDel">
+    <delete id="deleteboard">
         delete from t_board
         where iboard = #{iboard} and
         iuser = #{iuser}

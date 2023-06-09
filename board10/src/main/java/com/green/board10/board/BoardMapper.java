@@ -9,7 +9,7 @@ import java.util.List;
 public interface BoardMapper {
     int Insboard(BoardInsDto dto);
     List<BoardVo>selboard(BoardSelDto dto);
-    BoardDetail detail(BoardVo dto);
+    BoardDetail detail(BoardSelDto dto);
     int Updboard(BoardUpdDto dto);
-    int BoardDel(BoardDel dto);
+    int deleteboard(BoardDetail dto);
 }

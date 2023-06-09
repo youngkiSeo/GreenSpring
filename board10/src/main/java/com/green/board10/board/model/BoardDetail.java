@@ -8,6 +8,7 @@ public class BoardDetail {
     private String title;
     private String ctnt;
     private String nm;
+    private int iuser;
     private String created_at;
     private String updated_at;
 }

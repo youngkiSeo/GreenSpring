@@ -31,8 +31,8 @@ public class BoardController {
     }
     @GetMapping("/{iboard}")
     @Operation(summary = "자세히보기")
-    public BoardDetail GetBoardDetail(@PathVariable int iboard){
-        BoardVo dto = new BoardVo();
+    public BoardDetailAll GetBoardDetail(@PathVariable int iboard){
+        BoardSelDto dto = new BoardSelDto();
         dto.setIboard(iboard);
         return service.detail(dto);
     }
@@ -45,7 +45,10 @@ public class BoardController {
 
     @DeleteMapping
     @Operation(summary = "글 삭제")
-    public int delBoard(BoardDel dto){
+    public int delBoard(@RequestParam int iboard, @RequestParam int iuser) throws Exception {
+        BoardDetail dto = new BoardDetail();
+        dto.setIboard(iboard);
+        dto.setIuser(iuser);
         return service.BoardDel(dto);
     }
 

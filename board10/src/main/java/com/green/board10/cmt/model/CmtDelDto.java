@@ -3,9 +3,8 @@ package com.green.board10.cmt.model;
 import lombok.Data;
 
 @Data
-public class CmtSelDto {
+public class CmtDelDto {
+    private int iboard_cmt;
+    private int iuser;
     private int iboard;
-    private int startIdx;
-    private int row;
-    private int page;
 }
