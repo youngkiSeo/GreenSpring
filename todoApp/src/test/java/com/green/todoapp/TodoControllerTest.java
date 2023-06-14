@@ -1,7 +1,7 @@
 package com.green.todoapp;
 
-import com.green.todoapp.model.TodoInsDto;
-import com.green.todoapp.model.TodoVo;
+import com.google.gson.Gson;
+import com.green.todoapp.model.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +11,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import javax.xml.transform.Result;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -41,7 +43,13 @@ class TodoControllerTest {
         given(service.insTodo(any(TodoInsDto.class))).willReturn(3); // TodoInsDto 객체 주소값이 넘어간다/
 
         // when - 실제 실행
-        String json = "{\"ctnt\": \"빨래 개기\" }";
+        TodoInsDto dto = new TodoInsDto();
+        dto.setCtnt("빨래개기");
+
+        Gson gson = new Gson();
+        String json = gson.toJson(dto);
+        //String json = "{\"ctnt\": \"빨래 개기\" }";
+
         ResultActions ra = mvc.perform(post("/api/todo").
                 content(json)
                 .contentType(MediaType.APPLICATION_JSON)); // 미디어 타입의 json으로 날린다
@@ -75,5 +83,50 @@ class TodoControllerTest {
                 .andDo(print());
 
         verify(service).selTodo();
+    }
+
+    @Test
+    @DisplayName("Todo- 완료처리 토글")
+    void patchTodo() throws Exception{
+        //given
+        given(service.updTodo(any())).willReturn(1);
+
+        //when
+        TodoFinishDto fdto = new TodoFinishDto();
+        fdto.setItodo(1);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(fdto);
+
+        ResultActions ra = mvc.perform(patch("/api/todo")
+                .content(json)
+                .contentType(MediaType.APPLICATION_JSON));//mvc.perform 으로 apitodo patch 호출
+
+        //then
+         ra.andExpect(status().isOk())
+                        .andExpect(content().string("1"))
+                        .andDo(print());
+        verify(service).updTodo(any());
+    }
+
+    @Test
+    @DisplayName("Todo- 삭제인척")
+    void delTodo() throws Exception{
+        int itodo=10;
+        //given
+        given(service.delyn(anyInt())).willReturn(itodo);
+
+        //when
+
+        ResultActions ra = mvc.perform(delete("/api/todo")
+                        .param("itodo",String.valueOf(itodo)));
+
+        //then
+        ra.andExpect(status().isOk())
+                .andExpect(content().string(String.valueOf(itodo)))
+                .andDo(print());
+        verify(service).delyn(anyInt());
+
+
     }
 }
